@@ -1,8 +1,8 @@
 const INITIAL_STATE = {
-  name: 'Daniel',
+  name: 'nome-da-pessoa',
   assertions: 'número de acertos',
   score: 0,
-  gravatarEmail: 'danielcavalcanti8000@gmail.com' };
+  gravatarEmail: 'email' };
 
 const playerReducer = (state = INITIAL_STATE, action) => {
   switch (action.type) {
