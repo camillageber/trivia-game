@@ -5,10 +5,18 @@ class QuestionCard extends React.Component {
   state = {
     respondido: false,
     allAnswer: [],
+    timer: 30,
   }
 
   componentDidMount = () => {
     const allAnswer = this.geraQuestoesAleatorias();
+
+    const interval = setInterval(() => {
+      const { timer } = this.state;
+
+      if (timer === 1) { clearInterval(interval); }
+      this.setState((prevState) => ({ timer: prevState.timer - 1 }));
+    }, '1000');
 
     this.setState({ allAnswer });
   }
@@ -38,16 +46,18 @@ class QuestionCard extends React.Component {
 
   render() {
     const { allQuestions } = this.props;
-    const { respondido, allAnswer } = this.state;
+    const { respondido, allAnswer, timer } = this.state;
 
     return (
       <section>
+        <span>{ timer }</span>
         <p data-testid="question-text">
           {allQuestions.question}
         </p>
         <div data-testid="answer-options">
           { allAnswer.map((answer, i) => (
             <button
+              disabled={ timer === 0 }
               className={ (respondido && answer === allQuestions.correct_answer)
                 ? 'green-border'
                 : (respondido && answer !== allQuestions.correct_answer) && 'red-border' }
