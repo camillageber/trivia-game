@@ -14,7 +14,6 @@ class Game extends React.Component {
 
     async componentDidMount() {
       const questions = await getQuestions(localStorage.getItem('token'));
-      console.log(questions);
       if (questions) {
         this.setState({ questions, loading: false });
         // const randomArr = [questions.correct_answer, ...questions.incorrect_answers].sort;

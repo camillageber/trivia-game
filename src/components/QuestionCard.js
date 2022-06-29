@@ -2,9 +2,22 @@ import React from 'react';
 import PropTypes from 'prop-types';
 
 class QuestionCard extends React.Component {
-  // https://www.horadecodar.com.br/2021/05/10/como-embaralhar-um-array-em-javascript-shuffle/
+  state = {
+    respondido: false,
+    allAnswer: [],
+  }
 
-  geraQuestoesAleatorias() {
+  componentDidMount = () => {
+    const allAnswer = this.geraQuestoesAleatorias();
+
+    this.setState({ allAnswer });
+  }
+
+  handleClick = () => {
+    this.setState({ respondido: true });
+  }
+
+  geraQuestoesAleatorias = () => {
     const { allQuestions } = this.props;
     const allAnswer = [
       allQuestions.correct_answer,
@@ -25,8 +38,7 @@ class QuestionCard extends React.Component {
 
   render() {
     const { allQuestions } = this.props;
-
-    const allAnswer = this.geraQuestoesAleatorias();
+    const { respondido, allAnswer } = this.state;
 
     return (
       <section>
@@ -35,15 +47,18 @@ class QuestionCard extends React.Component {
         </p>
         <div data-testid="answer-options">
           { allAnswer.map((answer, i) => (
-            answer !== allQuestions.correct_answer ? (
-              <li data-testid={ `wrong-answer-${i}` } key={ answer }>
-                { answer }
-              </li>
-            ) : (
-              <li data-testid="correct-answer" key={ answer }>
-                { answer }
-              </li>
-            )
+            <button
+              className={ (respondido && answer === allQuestions.correct_answer)
+                ? 'green-border'
+                : (respondido && answer !== allQuestions.correct_answer) && 'red-border' }
+              onClick={ this.handleClick }
+              type="button"
+              data-testid={ answer === allQuestions.correct_answer
+                ? 'correct-answer' : `wrong-answer-${i}` }
+              key={ answer }
+            >
+              { answer }
+            </button>
           )) }
         </div>
         <p data-testid="question-category">{allQuestions.category}</p>
