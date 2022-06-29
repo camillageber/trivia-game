@@ -4,23 +4,29 @@ import PropTypes from 'prop-types';
 class QuestionCard extends React.Component {
   // https://www.horadecodar.com.br/2021/05/10/como-embaralhar-um-array-em-javascript-shuffle/
 
-  shuffleArray(arr) {
-    for (let i = arr.length - 1; i > 0; i -= 1) {
-      const j = Math.floor(Math.random() * (i + 1));
-      [arr[i], arr[j]] = [arr[j], arr[i]];
-    }
-    return arr;
-  }
-
-  render() {
+  geraQuestoesAleatorias() {
     const { allQuestions } = this.props;
-
     const allAnswer = [
       allQuestions.correct_answer,
       ...allQuestions.incorrect_answers,
     ];
 
-    console.log(this.shuffleArray(allAnswer));
+    const teste = [...allAnswer];
+    const questoesAleatorias = [];
+
+    for (let index = 0; teste.length; index += 1) {
+      const randomNumber = Number(Math.random() * teste.length);
+      const removeIndice = teste.splice(randomNumber, 1);
+      questoesAleatorias.push(removeIndice[0]);
+    }
+
+    return questoesAleatorias;
+  }
+
+  render() {
+    const { allQuestions } = this.props;
+
+    const allAnswer = this.geraQuestoesAleatorias();
 
     return (
       <section>
@@ -28,12 +34,17 @@ class QuestionCard extends React.Component {
           {allQuestions.question}
         </p>
         <div data-testid="answer-options">
-          <p data-testid="correct-answer">{allQuestions.correct_answer}</p>
-          {allQuestions.incorrect_answers.map((q, i) => (
-            <p data-testid={ `wrong-answer-${i}` } key={ q }>
-              {q}
-            </p>
-          ))}
+          { allAnswer.map((answer, i) => (
+            answer !== allQuestions.correct_answer ? (
+              <li data-testid={ `wrong-answer-${i}` } key={ answer }>
+                { answer }
+              </li>
+            ) : (
+              <li data-testid="correct-answer" key={ answer }>
+                { answer }
+              </li>
+            )
+          )) }
         </div>
         <p data-testid="question-category">{allQuestions.category}</p>
       </section>
