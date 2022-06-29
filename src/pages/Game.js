@@ -3,12 +3,13 @@ import { connect } from 'react-redux';
 import md5 from 'crypto-js/md5';
 import PropTypes from 'prop-types';
 import { getQuestions } from '../services/fetchAPI';
+import QuestionCard from '../components/QuestionCard';
 
 class Game extends React.Component {
     state = {
       questions: [],
       loading: true,
-      indexQuestion: 0,
+      index: 0,
     }
 
     async componentDidMount() {
@@ -26,9 +27,18 @@ class Game extends React.Component {
 
     getGravatar = (email) => `https://www.gravatar.com/avatar/${md5(email).toString()}`
 
+    nextQuestion = () => {
+      const quatro = 4;
+
+      this.setState((prevState) => ({
+        index: prevState.index === quatro ? 0 : prevState.index + 1,
+      }));
+    }
+
     render() {
       const { playerName, score, email } = this.props;
-      const { questions, loading, indexQuestion } = this.state;
+      const { questions, loading, index } = this.state;
+
       return (
         <div>
           <header>
@@ -41,22 +51,9 @@ class Game extends React.Component {
             <h3 data-testid="header-score">{score}</h3>
           </header>
           {!loading ? (
-            <section>
-              <p data-testid="question-text">{questions[indexQuestion].question}</p>
-              <div data-testid="answer-options">
-                <p data-testid="correct-answer">{questions[0].correct_answer}</p>
-                {questions[0].incorrect_answers.map((q, i) => (
-                  <p
-                    data-testid={ `wrong-answer-${i}` }
-                    key={ q }
-                  >
-                    {q}
-                  </p>))}
-              </div>
-              <p data-testid="question-category">{questions[0].category}</p>
-            </section>
+            <QuestionCard allQuestions={ questions[index] } />
           ) : <h1>Loading...</h1> }
-
+          <button type="button" onClick={ this.nextQuestion }>Next</button>
         </div>
       );
     }
