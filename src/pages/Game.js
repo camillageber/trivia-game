@@ -10,19 +10,32 @@ class Game extends React.Component {
       questions: [],
       loading: true,
       index: 0,
+      clicks: 0,
     }
 
     async componentDidMount() {
+      const { history } = this.props;
+
       const questions = await getQuestions(localStorage.getItem('token'));
       if (questions) {
         this.setState({ questions, loading: false });
-        // const randomArr = [questions.correct_answer, ...questions.incorrect_answers].sort;
       } else {
-        const { history } = this.props;
         history.push('/');
         localStorage.removeItem('token');
       }
     }
+
+    addClicks = () => {
+      const { history } = this.props;
+      const { clicks } = this.state;
+      const quatro = 4;
+
+      this.setState((prevState) => ({ clicks: prevState.clicks + 1 }));
+
+      if (clicks === quatro) {
+        history.push('/feedback');
+      }
+    };
 
     getGravatar = (email) => `https://www.gravatar.com/avatar/${md5(email).toString()}`
 
@@ -30,8 +43,12 @@ class Game extends React.Component {
       const quatro = 4;
 
       this.setState((prevState) => ({
-        index: prevState.index === quatro ? 0 : prevState.index + 1,
+        index: prevState.index === quatro
+          ? 0
+          : prevState.index + 1,
       }));
+
+      this.addClicks();
     }
 
     render() {

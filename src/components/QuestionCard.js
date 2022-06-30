@@ -11,22 +11,23 @@ class QuestionCard extends React.Component {
   }
 
   componentDidMount = () => {
-    // const interval = setInterval(() => {
-    //   const { timer } = this.state;
+    const interval = setInterval(() => {
+      const { timer } = this.state;
 
-    //   if (timer === 1) {
-    //     clearInterval(interval);
-    //   }
+      if (timer === 1) {
+        clearInterval(interval);
+      }
 
-    //   this.setState((prevState) => ({
-    //     timer: prevState.timer - 1,
-    //   }));
-    // }, '1000');
+      this.setState((prevState) => ({
+        timer: prevState.timer - 1,
+      }));
+    }, '1000');
   };
 
   handleClick = ({ target }, difficulty) => {
     const { dispatch } = this.props;
 
+    const green = 'green-border';
     this.setState({ respondido: true }, () => {
       const { timer } = this.state;
 
@@ -38,7 +39,7 @@ class QuestionCard extends React.Component {
 
       const dez = 10;
 
-      if (target.className === 'green-border') {
+      if (target.className === green) {
         const score = dez + (timer * razao[difficulty]);
         dispatch(addScore(score));
       } else {
