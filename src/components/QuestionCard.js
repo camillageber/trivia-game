@@ -6,22 +6,23 @@ import { addScore } from '../redux/actions/index';
 class QuestionCard extends React.Component {
   state = {
     respondido: false,
-    allAnswer: [],
     timer: 30,
+    nextEnable: false,
   }
 
   componentDidMount = () => {
-    const allAnswer = this.geraQuestoesAleatorias();
+    // const interval = setInterval(() => {
+    //   const { timer } = this.state;
 
-    const interval = setInterval(() => {
-      const { timer } = this.state;
+    //   if (timer === 1) {
+    //     clearInterval(interval);
+    //   }
 
-      if (timer === 1) { clearInterval(interval); }
-      this.setState((prevState) => ({ timer: prevState.timer - 1 }));
-    }, '1000');
-
-    this.setState({ allAnswer });
-  }
+    //   this.setState((prevState) => ({
+    //     timer: prevState.timer - 1,
+    //   }));
+    // }, '1000');
+  };
 
   handleClick = ({ target }, difficulty) => {
     const { dispatch } = this.props;
@@ -44,10 +45,16 @@ class QuestionCard extends React.Component {
         console.log('errou');
       }
     });
+
+    this.setState({
+      nextEnable: true,
+      timer: 30,
+    });
   }
 
-  geraQuestoesAleatorias = () => {
-    const { allQuestions } = this.props;
+  geraQuestoesAleatorias = (allQuestions) => {
+    // const { allQuestions } = this.props;
+
     const allAnswer = [
       allQuestions.correct_answer,
       ...allQuestions.incorrect_answers,
@@ -66,8 +73,8 @@ class QuestionCard extends React.Component {
   }
 
   render() {
-    const { allQuestions } = this.props;
-    const { respondido, allAnswer, timer } = this.state;
+    const { allQuestions, nextQuestion } = this.props;
+    const { respondido, timer, nextEnable } = this.state;
 
     return (
       <section>
@@ -76,7 +83,7 @@ class QuestionCard extends React.Component {
           {allQuestions.question}
         </p>
         <div data-testid="answer-options">
-          { allAnswer.map((answer, i) => (
+          { this.geraQuestoesAleatorias(allQuestions).map((answer, i) => (
             <button
               disabled={ timer === 0 }
               className={ (respondido && answer === allQuestions.correct_answer)
@@ -93,6 +100,15 @@ class QuestionCard extends React.Component {
           )) }
         </div>
         <p data-testid="question-category">{allQuestions.category}</p>
+        { nextEnable && (
+          <button
+            data-testid="btn-next"
+            type="button"
+            onClick={ nextQuestion }
+          >
+            Next
+          </button>
+        ) }
       </section>
     );
   }
@@ -101,6 +117,7 @@ class QuestionCard extends React.Component {
 QuestionCard.propTypes = {
   allQuestions: PropTypes.arrayOf.isRequired,
   dispatch: PropTypes.func.isRequired,
+  nextQuestion: PropTypes.func.isRequired,
 };
 
 export default connect()(QuestionCard);

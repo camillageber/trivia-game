@@ -9,7 +9,7 @@ const playerReducer = (state = INITIAL_STATE, action) => {
   case 'ADD_INFO':
     return { ...state, ...action.payload };
   case 'ADD_SCORE':
-    return { ...state, score: action.payload };
+    return { ...state, score: state.score + action.payload };
   default:
     return state;
   }

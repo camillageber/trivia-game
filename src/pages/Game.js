@@ -50,9 +50,11 @@ class Game extends React.Component {
             <h3 data-testid="header-score">{score}</h3>
           </header>
           {!loading ? (
-            <QuestionCard allQuestions={ questions[index] } />
+            <QuestionCard
+              allQuestions={ questions[index] }
+              nextQuestion={ this.nextQuestion }
+            />
           ) : <h1>Loading...</h1> }
-          <button type="button" onClick={ this.nextQuestion }>Next</button>
         </div>
       );
     }
