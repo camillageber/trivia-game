@@ -20,7 +20,7 @@ class Game extends React.Component {
       } else {
         const { history } = this.props;
         history.push('/');
-        localStorage.remove('token');
+        localStorage.removeItem('token');
       }
     }
 

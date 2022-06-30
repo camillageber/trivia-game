@@ -74,7 +74,7 @@ describe('Testes Login', () => {
     userEvent.type(inputName, 'teste');
     userEvent.type(inputEmail, 'teste@teste.com');
 
-  
+
     expect(playButton).not.toBeDisabled();
 
     userEvent.click(playButton);
@@ -95,7 +95,7 @@ describe('Testes Login', () => {
 
     userEvent.type(inputName, 'teste');
     userEvent.type(inputEmail, 'teste@teste.com');
-    
+
     expect(playButton).not.toBeDisabled();
 
     const settingsButton = screen.getByRole('button', { name: /settings/i })

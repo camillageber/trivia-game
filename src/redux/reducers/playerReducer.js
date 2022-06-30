@@ -8,6 +8,8 @@ const playerReducer = (state = INITIAL_STATE, action) => {
   switch (action.type) {
   case 'ADD_INFO':
     return { ...state, ...action.payload };
+  case 'ADD_SCORE':
+    return { ...state, score: action.payload };
   default:
     return state;
   }

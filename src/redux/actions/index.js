@@ -1,4 +1,4 @@
-const addInfo = (gravatarEmail, name) => ({
+export const addInfo = (gravatarEmail, name) => ({
   type: 'ADD_INFO',
   payload: {
     gravatarEmail,
@@ -6,4 +6,7 @@ const addInfo = (gravatarEmail, name) => ({
   },
 });
 
-export default addInfo;
+export const addScore = (score) => ({
+  type: 'ADD_SCORE',
+  payload: score,
+});

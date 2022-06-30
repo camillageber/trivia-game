@@ -1,5 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
+import { connect } from 'react-redux';
+import { addScore } from '../redux/actions/index';
 
 class QuestionCard extends React.Component {
   state = {
@@ -21,8 +23,27 @@ class QuestionCard extends React.Component {
     this.setState({ allAnswer });
   }
 
-  handleClick = () => {
-    this.setState({ respondido: true });
+  handleClick = ({ target }, difficulty) => {
+    const { dispatch } = this.props;
+
+    this.setState({ respondido: true }, () => {
+      const { timer } = this.state;
+
+      const razao = {
+        hard: 3,
+        medium: 2,
+        easy: 1,
+      };
+
+      const dez = 10;
+
+      if (target.className === 'green-border') {
+        const score = dez + (timer * razao[difficulty]);
+        dispatch(addScore(score));
+      } else {
+        console.log('errou');
+      }
+    });
   }
 
   geraQuestoesAleatorias = () => {
@@ -61,7 +82,7 @@ class QuestionCard extends React.Component {
               className={ (respondido && answer === allQuestions.correct_answer)
                 ? 'green-border'
                 : (respondido && answer !== allQuestions.correct_answer) && 'red-border' }
-              onClick={ this.handleClick }
+              onClick={ (e) => this.handleClick(e, allQuestions.difficulty) }
               type="button"
               data-testid={ answer === allQuestions.correct_answer
                 ? 'correct-answer' : `wrong-answer-${i}` }
@@ -79,6 +100,7 @@ class QuestionCard extends React.Component {
 
 QuestionCard.propTypes = {
   allQuestions: PropTypes.arrayOf.isRequired,
+  dispatch: PropTypes.func.isRequired,
 };
 
-export default QuestionCard;
+export default connect()(QuestionCard);
