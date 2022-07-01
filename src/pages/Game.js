@@ -15,7 +15,6 @@ class Game extends React.Component {
 
     async componentDidMount() {
       const { history } = this.props;
-
       const questions = await getQuestions(localStorage.getItem('token'));
       if (questions) {
         this.setState({ questions, loading: false });
@@ -26,7 +25,7 @@ class Game extends React.Component {
     }
 
     addClicks = () => {
-      const { history } = this.props;
+      const { history, playerName, score, email } = this.props;
       const { clicks } = this.state;
       const quatro = 4;
 
@@ -34,6 +33,18 @@ class Game extends React.Component {
 
       if (clicks === quatro) {
         history.push('/feedback');
+        const playerObj = {
+          name: playerName,
+          score,
+          picture: this.getGravatar(email),
+        };
+        let rankingArr = JSON.parse(localStorage.getItem('ranking'));
+        if (rankingArr) {
+          rankingArr = [...rankingArr, playerObj];
+        } else {
+          rankingArr = [playerObj];
+        }
+        localStorage.setItem('ranking', JSON.stringify(rankingArr));
       }
     };
 

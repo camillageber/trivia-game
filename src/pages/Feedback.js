@@ -11,18 +11,44 @@ class Feedback extends React.Component {
     const tres = 3;
 
     return (
-      <header>
-        <img
-          data-testid="header-profile-picture"
-          src={ this.getGravatar(email) }
-          alt="gravatar"
-        />
-        <h2 data-testid="header-player-name">{ playerName }</h2>
-        <h2 data-testid="header-score">{ score }</h2>
-        <p data-testid="feedback-text">
-          { assertions >= tres ? 'Well Done!' : 'Could be better...'}
-        </p>
-      </header>
+      <div>
+        <header>
+          <img
+            data-testid="header-profile-picture"
+            src={ this.getGravatar(email) }
+            alt="gravatar"
+          />
+          <h2 data-testid="header-player-name">{ playerName }</h2>
+          <h2 data-testid="header-score">{ score }</h2>
+          <p data-testid="feedback-text">
+            { assertions >= tres ? 'Well Done!' : 'Could be better...'}
+          </p>
+        </header>
+        <section id="playerResult">
+          <p data-testid="feedback-total-score">{score}</p>
+          <p data-testid="feedback-total-question">{assertions}</p>
+        </section>
+        <button
+          type="button"
+          data-testid="btn-play-again"
+          onClick={ () => {
+            const { history } = this.props;
+            history.push('/');
+          } }
+        >
+          Play Again
+        </button>
+        <button
+          type="button"
+          data-testid="btn-ranking"
+          onClick={ () => {
+            const { history } = this.props;
+            history.push('/ranking');
+          } }
+        >
+          Ranking
+        </button>
+      </div>
     );
   }
 }
@@ -39,6 +65,9 @@ Feedback.propTypes = {
   playerName: PropTypes.string.isRequired,
   score: PropTypes.string.isRequired,
   assertions: PropTypes.number.isRequired,
+  history: PropTypes.shape({
+    push: PropTypes.func.isRequired,
+  }).isRequired,
 };
 
 export default connect(mapStateToProps)(Feedback);
