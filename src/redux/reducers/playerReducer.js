@@ -13,6 +13,11 @@ const playerReducer = (state = INITIAL_STATE, action) => {
       ...state,
       score: state.score + action.payload,
       assertions: state.assertions + 1 };
+  case 'ZERAR_SCORE':
+    return {
+      ...state,
+      score: 0,
+    };
   default:
     return state;
   }
