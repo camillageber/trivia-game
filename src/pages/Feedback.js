@@ -27,8 +27,18 @@ class Feedback extends React.Component {
         <section id="playerResult">
           <p data-testid="feedback-total-score">{score}</p>
           <p data-testid="feedback-total-question">{assertions}</p>
-
         </section>
+        <button
+          type="button"
+          data-testid="btn-play-again"
+          onClick={ () => {
+            const { history } = this.props;
+            history.push('/');
+          } }
+        >
+          Play Again
+
+        </button>
       </div>
     );
   }
@@ -46,6 +56,9 @@ Feedback.propTypes = {
   playerName: PropTypes.string.isRequired,
   score: PropTypes.string.isRequired,
   assertions: PropTypes.number.isRequired,
+  history: PropTypes.shape({
+    push: PropTypes.func.isRequired,
+  }).isRequired,
 };
 
 export default connect(mapStateToProps)(Feedback);
