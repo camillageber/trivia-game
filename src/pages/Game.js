@@ -25,7 +25,7 @@ class Game extends React.Component {
     }
 
     addClicks = () => {
-      const { history, playerName, score, email } = this.props;
+      const { history, playerName, score, email, dispatch } = this.props;
       const { clicks } = this.state;
       const quatro = 4;
 
@@ -45,6 +45,7 @@ class Game extends React.Component {
           rankingArr = [playerObj];
         }
         localStorage.setItem('ranking', JSON.stringify(rankingArr));
+        dispatch({ type: 'ZERAR_SCORE' });
       }
     };
 
@@ -101,6 +102,7 @@ Game.propTypes = {
   history: PropTypes.shape({
     push: PropTypes.func.isRequired,
   }).isRequired,
+  dispatch: PropTypes.func.isRequired,
 };
 
 export default connect(mapStateToProps)(Game);
