@@ -6,21 +6,17 @@ import { addScore } from '../redux/actions/index';
 class QuestionCard extends React.Component {
   state = {
     respondido: false,
-    timer: 30,
     nextEnable: false,
+    timer: 30,
   }
 
   componentDidMount = () => {
+    const { timer } = this.state;
     const interval = setInterval(() => {
-      const { timer } = this.state;
-
       if (timer === 1) {
         clearInterval(interval);
       }
-
-      this.setState((prevState) => ({
-        timer: prevState.timer - 1,
-      }));
+      this.setState((prev) => ({ timer: prev.timer - 1 }));
     }, '1000');
   };
 
@@ -54,8 +50,6 @@ class QuestionCard extends React.Component {
   }
 
   geraQuestoesAleatorias = (allQuestions) => {
-    // const { allQuestions } = this.props;
-
     const allAnswer = [
       allQuestions.correct_answer,
       ...allQuestions.incorrect_answers,
@@ -79,7 +73,6 @@ class QuestionCard extends React.Component {
 
     return (
       <section>
-        <span>{ timer }</span>
         <p data-testid="question-text">
           {allQuestions.question}
         </p>
