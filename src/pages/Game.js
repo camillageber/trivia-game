@@ -63,6 +63,29 @@ class Game extends React.Component {
       this.addClicks();
     }
 
+    geraQuestoesAleatorias = (allQuestions) => {
+      const allAnswer = [
+        { answer: allQuestions.correct_answer,
+          correct: true,
+          difficulty: allQuestions.difficulty },
+        ...allQuestions.incorrect_answers
+          .map((item) => ({ answer: item,
+            correct: false,
+            dificulty: allQuestions.difficulty })),
+      ];
+
+      const teste = [...allAnswer];
+      const questoesAleatorias = [];
+
+      for (let index = 0; teste.length; index += 1) {
+        const randomNumber = Number(Math.random() * teste.length);
+        const removeIndice = teste.splice(randomNumber, 1);
+        questoesAleatorias.push(removeIndice[0]);
+      }
+
+      return questoesAleatorias;
+    }
+
     render() {
       const { playerName, score, email } = this.props;
       const { questions, loading, index } = this.state;
@@ -80,8 +103,10 @@ class Game extends React.Component {
           </header>
           {!loading ? (
             <QuestionCard
-              allQuestions={ questions[index] }
+              allQuestions={ this.geraQuestoesAleatorias(questions[index]) }
               nextQuestion={ this.nextQuestion }
+              questionCurrent={ questions[index] }
+              key={ index }
             />
           ) : <h1>Loading...</h1> }
         </div>

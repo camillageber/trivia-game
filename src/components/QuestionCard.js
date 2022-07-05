@@ -49,43 +49,26 @@ class QuestionCard extends React.Component {
     });
   }
 
-  geraQuestoesAleatorias = (allQuestions) => {
-    const allAnswer = [
-      allQuestions.correct_answer,
-      ...allQuestions.incorrect_answers,
-    ];
-
-    const teste = [...allAnswer];
-    const questoesAleatorias = [];
-
-    for (let index = 0; teste.length; index += 1) {
-      const randomNumber = Number(Math.random() * teste.length);
-      const removeIndice = teste.splice(randomNumber, 1);
-      questoesAleatorias.push(removeIndice[0]);
-    }
-
-    return questoesAleatorias;
-  }
-
   render() {
-    const { allQuestions, nextQuestion } = this.props;
+    const { allQuestions, nextQuestion, questionCurrent } = this.props;
     const { respondido, timer, nextEnable } = this.state;
 
     return (
       <section>
+        <p>{timer}</p>
         <p data-testid="question-text">
-          {allQuestions.question}
+          {questionCurrent.question}
         </p>
         <div data-testid="answer-options">
-          { this.geraQuestoesAleatorias(allQuestions).map((answer, i) => (
+          { allQuestions.map(({ answer, correct, difficulty }, i) => (
             <button
               disabled={ timer === 0 }
-              className={ (respondido && answer === allQuestions.correct_answer)
+              className={ (respondido && correct)
                 ? 'green-border'
-                : (respondido && answer !== allQuestions.correct_answer) && 'red-border' }
-              onClick={ (e) => this.handleClick(e, allQuestions.difficulty) }
+                : (respondido && !correct) && 'red-border' }
+              onClick={ (e) => this.handleClick(e, difficulty) }
               type="button"
-              data-testid={ answer === allQuestions.correct_answer
+              data-testid={ correct
                 ? 'correct-answer' : `wrong-answer-${i}` }
               key={ answer }
             >
@@ -93,7 +76,7 @@ class QuestionCard extends React.Component {
             </button>
           )) }
         </div>
-        <p data-testid="question-category">{allQuestions.category}</p>
+        <p data-testid="question-category">{questionCurrent.category}</p>
         { nextEnable && (
           <button
             data-testid="btn-next"
@@ -112,6 +95,10 @@ QuestionCard.propTypes = {
   allQuestions: PropTypes.arrayOf.isRequired,
   dispatch: PropTypes.func.isRequired,
   nextQuestion: PropTypes.func.isRequired,
+  questionCurrent: PropTypes.shape({
+    category: PropTypes.string.isRequired,
+    question: PropTypes.string.isRequired,
+  }).isRequired,
 };
 
 export default connect()(QuestionCard);
