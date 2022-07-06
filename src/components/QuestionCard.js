@@ -53,7 +53,9 @@ class QuestionCard extends React.Component {
 
   decodeHtml = (string) => {
     const newstr = string.split('&quot;').join('"');
-    return newstr.split('&#039;').join('\'');
+    const newstr2 = newstr.split('&ldquo').join('"');
+    const newstr3 = newstr2.split('&rdquo').join('"');
+    return newstr3.split('&#039;').join('\'');
   }
 
   render() {
