@@ -11,10 +11,11 @@ class QuestionCard extends React.Component {
   }
 
   componentDidMount = () => {
-    const { timer } = this.state;
     const interval = setInterval(() => {
+      const { timer } = this.state;
       if (timer === 1) {
         clearInterval(interval);
+        this.setState({ respondido: true, nextEnable: true });
       }
       this.setState((prev) => ({ timer: prev.timer - 1 }));
     }, '1000');
@@ -44,6 +45,7 @@ class QuestionCard extends React.Component {
     });
 
     this.setState({
+      respondido: true,
       nextEnable: true,
       timer: 30,
     });
@@ -62,7 +64,7 @@ class QuestionCard extends React.Component {
         <div data-testid="answer-options">
           { allQuestions.map(({ answer, correct, difficulty }, i) => (
             <button
-              disabled={ timer === 0 }
+              disabled={ timer === 0 || respondido }
               className={ (respondido && correct)
                 ? 'green-border'
                 : (respondido && !correct) && 'red-border' }
