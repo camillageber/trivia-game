@@ -51,6 +51,11 @@ class QuestionCard extends React.Component {
     });
   }
 
+  decodeHtml = (string) => {
+    const newstr = string.split('&quot;').join('"');
+    return newstr.split('&#039;').join('\'');
+  }
+
   render() {
     const { allQuestions, nextQuestion, questionCurrent } = this.props;
     const { respondido, timer, nextEnable } = this.state;
@@ -59,7 +64,7 @@ class QuestionCard extends React.Component {
       <section>
         <p>{timer}</p>
         <p data-testid="question-text">
-          {questionCurrent.question}
+          {this.decodeHtml(questionCurrent.question)}
         </p>
         <div data-testid="answer-options">
           { allQuestions.map(({ answer, correct, difficulty }, i) => (
@@ -74,7 +79,7 @@ class QuestionCard extends React.Component {
                 ? 'correct-answer' : `wrong-answer-${i}` }
               key={ answer }
             >
-              { answer }
+              { this.decodeHtml(answer) }
             </button>
           )) }
         </div>
