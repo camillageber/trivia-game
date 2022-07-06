@@ -78,12 +78,12 @@ class QuestionCard extends React.Component {
     const { respondido, timer, nextEnable } = this.state;
 
     return (
-      <section>
-        <span>{ timer }</span>
-        <p data-testid="question-text">
+      <section className="game-question">
+        <div className="timer">{ timer }</div>
+        <p className="question" data-testid="question-text">
           {allQuestions.question}
         </p>
-        <div data-testid="answer-options">
+        <div className="answers" data-testid="answer-options">
           { this.geraQuestoesAleatorias(allQuestions).map((answer, i) => (
             <button
               disabled={ timer === 0 }
@@ -100,9 +100,15 @@ class QuestionCard extends React.Component {
             </button>
           )) }
         </div>
-        <p data-testid="question-category">{allQuestions.category}</p>
+        <p
+          className="category"
+          data-testid="question-category"
+        >
+          {allQuestions.category}
+        </p>
         { nextEnable && (
           <button
+            className="btn-next"
             data-testid="btn-next"
             type="button"
             onClick={ nextQuestion }

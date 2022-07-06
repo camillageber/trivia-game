@@ -4,6 +4,7 @@ import md5 from 'crypto-js/md5';
 import PropTypes from 'prop-types';
 import { getQuestions } from '../services/fetchAPI';
 import QuestionCard from '../components/QuestionCard';
+import '../styles/game.css';
 
 class Game extends React.Component {
     state = {
@@ -68,22 +69,22 @@ class Game extends React.Component {
       const { questions, loading, index } = this.state;
 
       return (
-        <div>
+        <div className="game-container">
           <header>
             <img
               data-testid="header-profile-picture"
               src={ this.getGravatar(email) }
               alt="gravatar"
             />
-            <h2 data-testid="header-player-name">{playerName}</h2>
-            <h3 data-testid="header-score">{score}</h3>
+            <h2 className="player-name" data-testid="header-player-name">{playerName}</h2>
+            <h3 className="score" data-testid="header-score">{score}</h3>
           </header>
           {!loading ? (
             <QuestionCard
               allQuestions={ questions[index] }
               nextQuestion={ this.nextQuestion }
             />
-          ) : <h1>Loading...</h1> }
+          ) : <h1 className="loading">Loading...</h1> }
         </div>
       );
     }
