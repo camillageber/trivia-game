@@ -6,21 +6,18 @@ import { addScore } from '../redux/actions/index';
 class QuestionCard extends React.Component {
   state = {
     respondido: false,
-    timer: 30,
     nextEnable: false,
+    timer: 30,
   }
 
   componentDidMount = () => {
     const interval = setInterval(() => {
       const { timer } = this.state;
-
       if (timer === 1) {
         clearInterval(interval);
+        this.setState({ respondido: true, nextEnable: true });
       }
-
-      this.setState((prevState) => ({
-        timer: prevState.timer - 1,
-      }));
+      this.setState((prev) => ({ timer: prev.timer - 1 }));
     }, '1000');
   };
 
@@ -48,59 +45,45 @@ class QuestionCard extends React.Component {
     });
 
     this.setState({
+      respondido: true,
       nextEnable: true,
       timer: 30,
     });
   }
 
-  geraQuestoesAleatorias = (allQuestions) => {
-    // const { allQuestions } = this.props;
-
-    const allAnswer = [
-      allQuestions.correct_answer,
-      ...allQuestions.incorrect_answers,
-    ];
-
-    const teste = [...allAnswer];
-    const questoesAleatorias = [];
-
-    for (let index = 0; teste.length; index += 1) {
-      const randomNumber = Number(Math.random() * teste.length);
-      const removeIndice = teste.splice(randomNumber, 1);
-      questoesAleatorias.push(removeIndice[0]);
-    }
-
-    return questoesAleatorias;
+  decodeHtml = (string) => {
+    const newstr = string.split('&quot;').join('"');
+    return newstr.split('&#039;').join('\'');
   }
 
   render() {
-    const { allQuestions, nextQuestion } = this.props;
+    const { allQuestions, nextQuestion, questionCurrent } = this.props;
     const { respondido, timer, nextEnable } = this.state;
 
     return (
       <section>
-        <span>{ timer }</span>
+        <p>{timer}</p>
         <p data-testid="question-text">
-          {allQuestions.question}
+          {this.decodeHtml(questionCurrent.question)}
         </p>
         <div data-testid="answer-options">
-          { this.geraQuestoesAleatorias(allQuestions).map((answer, i) => (
+          { allQuestions.map(({ answer, correct, difficulty }, i) => (
             <button
-              disabled={ timer === 0 }
-              className={ (respondido && answer === allQuestions.correct_answer)
+              disabled={ timer === 0 || respondido }
+              className={ (respondido && correct)
                 ? 'green-border'
-                : (respondido && answer !== allQuestions.correct_answer) && 'red-border' }
-              onClick={ (e) => this.handleClick(e, allQuestions.difficulty) }
+                : (respondido && !correct) && 'red-border' }
+              onClick={ (e) => this.handleClick(e, difficulty) }
               type="button"
-              data-testid={ answer === allQuestions.correct_answer
+              data-testid={ correct
                 ? 'correct-answer' : `wrong-answer-${i}` }
               key={ answer }
             >
-              { answer }
+              { this.decodeHtml(answer) }
             </button>
           )) }
         </div>
-        <p data-testid="question-category">{allQuestions.category}</p>
+        <p data-testid="question-category">{questionCurrent.category}</p>
         { nextEnable && (
           <button
             data-testid="btn-next"
@@ -119,6 +102,10 @@ QuestionCard.propTypes = {
   allQuestions: PropTypes.arrayOf.isRequired,
   dispatch: PropTypes.func.isRequired,
   nextQuestion: PropTypes.func.isRequired,
+  questionCurrent: PropTypes.shape({
+    category: PropTypes.string.isRequired,
+    question: PropTypes.string.isRequired,
+  }).isRequired,
 };
 
 export default connect()(QuestionCard);
