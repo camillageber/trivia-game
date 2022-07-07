@@ -1,8 +1,9 @@
-export const addInfo = (gravatarEmail, name) => ({
+export const addInfo = (gravatarEmail, name, id) => ({
   type: 'ADD_INFO',
   payload: {
     gravatarEmail,
     name,
+    id,
   },
 });
 

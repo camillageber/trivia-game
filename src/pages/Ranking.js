@@ -1,5 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
+import '../styles/ranking.css';
 
 class Ranking extends React.Component {
 state = {
@@ -14,11 +15,11 @@ componentDidMount() {
 render() {
   const { ranking } = this.state;
   return (
-    <div>
-      <h1 data-testid="ranking-title">Ranking Title</h1>
-      <section id="ranking">
+    <div className="ranking-container">
+      <h1 data-testid="ranking-title" className="title">Ranking</h1>
+      <section id="ranking" className="container-father">
         {ranking.map((r, i) => (
-          <div key={ r.name }>
+          <div key={ r.name } className="user-ranking-container">
             <img src={ r.picture } alt="gravatar" />
             <p data-testid={ `player-name-${i}` }>{r.name}</p>
             <p data-testid={ `player-score-${i}` }>{r.score}</p>
@@ -33,7 +34,7 @@ render() {
           history.push('/');
         } }
       >
-        Ranking
+        Play Again
       </button>
     </div>
   );
