@@ -63,12 +63,12 @@ class QuestionCard extends React.Component {
     const { respondido, timer, nextEnable } = this.state;
 
     return (
-      <section>
-        <p>{timer}</p>
-        <p data-testid="question-text">
+      <section className="game-question">
+        <div className="timer">{timer}</div>
+        <p className="question" data-testid="question-text">
           {this.decodeHtml(questionCurrent.question)}
         </p>
-        <div data-testid="answer-options">
+        <div className="answers" data-testid="answer-options">
           { allQuestions.map(({ answer, correct, difficulty }, i) => (
             <button
               disabled={ timer === 0 || respondido }
@@ -85,9 +85,15 @@ class QuestionCard extends React.Component {
             </button>
           )) }
         </div>
-        <p data-testid="question-category">{questionCurrent.category}</p>
+        <p
+          className="category"
+          data-testid="question-category"
+        >
+          {questionCurrent.category}
+        </p>
         { nextEnable && (
           <button
+            className="btn-next"
             data-testid="btn-next"
             type="button"
             onClick={ nextQuestion }

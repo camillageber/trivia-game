@@ -4,6 +4,7 @@ import md5 from 'crypto-js/md5';
 import PropTypes from 'prop-types';
 import { getQuestions } from '../services/fetchAPI';
 import QuestionCard from '../components/QuestionCard';
+import '../styles/game.css';
 
 class Game extends React.Component {
     state = {
@@ -25,7 +26,7 @@ class Game extends React.Component {
     }
 
     addClicks = () => {
-      const { history, playerName, score, email, dispatch } = this.props;
+      const { history, playerName, score, email, dispatch, id, assertions } = this.props;
       const { clicks } = this.state;
       const quatro = 4;
 
@@ -36,6 +37,8 @@ class Game extends React.Component {
         const playerObj = {
           name: playerName,
           score,
+          id,
+          assertions,
           picture: this.getGravatar(email),
         };
         let rankingArr = JSON.parse(localStorage.getItem('ranking'));
@@ -91,15 +94,15 @@ class Game extends React.Component {
       const { questions, loading, index } = this.state;
 
       return (
-        <div>
+        <div className="game-container">
           <header>
             <img
               data-testid="header-profile-picture"
               src={ this.getGravatar(email) }
               alt="gravatar"
             />
-            <h2 data-testid="header-player-name">{playerName}</h2>
-            <h3 data-testid="header-score">{score}</h3>
+            <h2 className="player-name" data-testid="header-player-name">{playerName}</h2>
+            <h3 className="score" data-testid="header-score">{score}</h3>
           </header>
           {!loading ? (
             <QuestionCard
@@ -108,7 +111,7 @@ class Game extends React.Component {
               questionCurrent={ questions[index] }
               key={ index }
             />
-          ) : <h1>Loading...</h1> }
+          ) : <h1 className="loading">Loading...</h1> }
         </div>
       );
     }
@@ -118,6 +121,7 @@ const mapStateToProps = (state) => ({
   email: state.player.gravatarEmail,
   playerName: state.player.name,
   score: state.player.score,
+  id: state.player.id,
 });
 
 Game.propTypes = {
@@ -128,6 +132,8 @@ Game.propTypes = {
     push: PropTypes.func.isRequired,
   }).isRequired,
   dispatch: PropTypes.func.isRequired,
+  id: PropTypes.number.isRequired,
+  assertions: PropTypes.number.isRequired,
 };
 
 export default connect(mapStateToProps)(Game);
