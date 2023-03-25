@@ -1,3 +1,5 @@
+<img align="center" width="850" src="https://s4.aconvert.com/convert/p3r68-cdx67/ae9ag-djo7c.png"/>
+
 # Trivia Game
 
 This game is a educational project we've developed at Trybe. It's proposal is to make a questions and answers game, with a specific timer for the answers, calculating the player's score in case of a hit. It also gives the option of consulting the ranking of the players and also access to the settings to be able to customize the game. Since it was a group project, it was also possible to develop soft skills such as brainstorming, commits to multiple branches, parallel and pair/group programming.
@@ -62,7 +64,7 @@ This project was developed in collaboration with [Carlos Daniel](https://github.
   
   # The final result: 
 <div>
-   <img align="center" alt="capa" src="https://s12.aconvert.com/convert/p3r68-cdx67/aa73a-42m54.gif" />
+   <img align="center" alt="capa" width="750" src="https://media.giphy.com/media/v1.Y2lkPTc5MGI3NjExNmU5ZDY1MTJhMjY0YWYyY2EyOGVkNzkyMTFhNWI1MjI1OThiY2RlZCZjdD1n/bc1hzoOvuW5oxzZMOS/giphy.gif" />
 </div>
 
   
