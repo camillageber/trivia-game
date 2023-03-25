@@ -64,7 +64,7 @@ This project was developed in collaboration with [Carlos Daniel](https://github.
   
   # The final result: 
 <div>
-   <img align="center" alt="capa" width="750" src="https://media.giphy.com/media/v1.Y2lkPTc5MGI3NjExNmU5ZDY1MTJhMjY0YWYyY2EyOGVkNzkyMTFhNWI1MjI1OThiY2RlZCZjdD1n/bc1hzoOvuW5oxzZMOS/giphy.gif" />
+   <img align="center" alt="capa" width="1000" src="https://user-images.githubusercontent.com/88116437/227690550-0d110e2a-c867-4584-9ceb-9f987fb513f8.gif" />
 </div>
 
   
