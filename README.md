@@ -1,13 +1,68 @@
-# :construction: README customizado em construção ! :construction:
-<!-- Olá, Tryber!
-Esse é apenas um arquivo inicial para o README do seu projeto no qual você pode customizar e reutilizar todas as vezes que for executar o trybe-publisher.
+# Trivia Game
 
-Para deixá-lo com a sua cara, basta alterar o seguinte arquivo da sua máquina: ~/.student-repo-publisher/custom/_NEW_README.md
+This game is a educational project we've developed at Trybe. It's proposal is to make a questions and answers game, with a specific timer for the answers, calculating the player's score in case of a hit. It also gives the option of consulting the ranking of the players and also access to the settings to be able to customize the game. Since it was a group project, it was also possible to develop soft skills such as brainstorming, commits to multiple branches, parallel and pair/group programming.
 
-É essencial que você preencha esse documento por conta própria, ok?
-Não deixe de usar nossas dicas de escrita de README de projetos, e deixe sua criatividade brilhar!
-:warning: IMPORTANTE: você precisa deixar nítido:
-- quais arquivos/pastas foram desenvolvidos por você; 
-- quais arquivos/pastas foram desenvolvidos por outra pessoa estudante;
-- quais arquivos/pastas foram desenvolvidos pela Trybe.
--->
+<h2> About the project: </h2>
+  
+This project was developed in collaboration with [Carlos Daniel](https://github.com/carllosdannyel), [Gabriela](https://github.com/gahbimenezes), [Bruno](https://github.com/brunodnc) and [Daniel](https://github.com/DanielCavalcantih).
+
+----
+
+<h3> Main Technologies </h3>
+
+<div>
+  <ul>
+    <li> JavaScript </li>
+    <li> CSS </li>
+    <li> React </li>
+    <li> Redux </li>
+    <li> Kanban </li>
+    <li> RTL (React Testing Library) </li>
+    <li> Trivia's API </li>
+    <li> Gravatar </li>
+  </ul>
+</div>
+
+---
+<h3> Some of my techinical contribution to this project: </h3>
+<div>
+  <ul>
+    <li>Create a Redux store in React applications</li>
+    <li>Create reducers in Redux in React applications</li>
+    <li>Create Redux actions in React applications</li>
+    <li>Create Redux dispatchers in React applications</li>
+    <li>Connect Redux to React components</li>
+    <li>Create asynchronous actions in your React application that makes use of Redux</li>
+    <li>Write tests to ensure your application has good test coverage</li>
+    <li>Work scheduling organization</li>
+    <li>Presentation of the work</li>
+  </ul>
+  </div>
+  
+ ----
+  
+<h3> Before Start </h3>
+
+<p><b> To start the project, you need to have the Node and npm package installed on your machine.</b>
+  <ul>
+    <li> Clone the repository to your machine with the command:</li>
+      
+        git clone git@github.com:camillageber/trivia-game.git
+      
+   <li> Go to the folder where you cloned your repository and, at the root of the project, install its dependencies with the command:</li>
+        
+         npm install
+    
+  <li> Then just initialize the project with the command:</li>
+    
+         npm start
+  </ul>
+  
+  -----
+  
+  # The final result: 
+<div>
+   <img align="center" alt="capa" src="https://s12.aconvert.com/convert/p3r68-cdx67/aa73a-42m54.gif" />
+</div>
+
+  
