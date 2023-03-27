@@ -1,4 +1,4 @@
-<img align="center" width="850" src="https://s4.aconvert.com/convert/p3r68-cdx67/ae9ag-djo7c.png"/>
+<img align="center" width="850" src="https://user-images.githubusercontent.com/88116437/228020187-d0234acf-7ef5-48ac-99de-27e2c02912e5.png"/>
 
 # Trivia Game
 
